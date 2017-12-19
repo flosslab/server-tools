@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+
+    <record model="ir.ui.view" id="view_document_file_protocol_form_sharedmail">
+        <field name="name">fetchmail.server.form.sharedmail</field>
+        <field name="model">fetchmail.server</field>
+        <field name="priority" eval="1"/>
+        <field name="inherit_id" ref="fetchmail.view_email_server_form"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after" >
+                <field name="sharedmail" />
+            </field>
+            <notebook position="inside">
+                <page string="Configure allowed sharedmail users" attrs="{'invisible': [('sharedmail','=',False)]}">
+                     <field name="user_sharedmail_ids" />
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</data>
+</openerp>

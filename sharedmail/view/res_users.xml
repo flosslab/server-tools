@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+
+    <record model="ir.ui.view" id="view_user_form_sharedmail">
+        <field name="name">res.users.form.sharedmail</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Fetchmail sharedmail servers">
+                    <field name="allowed_server_sharedmail_ids"  />
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</data>
+</openerp>

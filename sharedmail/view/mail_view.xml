@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+
+        <record model="ir.ui.view" id="view_message_form_sharedmail">
+            <field name="name">mail.message.form.sharedmail</field>
+            <field name="model">mail.message</field>
+            <field name="inherit_id" ref="mail.view_message_form"/>
+            <field name="arch" type="xml">
+                <field name="subtype_id" position="after" >
+                    <field name="direction_sharedmail" groups="base.group_erp_manager" />
+                </field>
+                <field name="body" position="replace" >
+                    <notebook>
+                        <page string="Body">
+                            <field name="body"/>
+                        </page>
+                    </notebook>
+                </field>
+                <field name="model" position="before" >
+                    <field name="server_sharedmail_id" />
+                    <field name="out_server_sharedmail_id" />
+                </field>
+            </field>
+        </record>
+
+        <!--<record model='ir.ui.view' id='message_pec_partner_tree'>-->
+            <!--<field name="name">res.partner.pec.tree</field>-->
+            <!--<field name="model">res.partner</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="Pec">-->
+                    <!--<field name="name" />-->
+                    <!--<field name="phone" />-->
+                    <!--<field name="pec_mail" />-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record model='ir.ui.view' id='message_sharedmail_form'>
+            <field name="name">message.sharedmail.form</field>
+            <field name="model">mail.message</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <form string="Pec" create="false" edit="false" delete="false">
+                    <header>
+
+                    </header>
+                    <group>
+                        <field name="direction_sharedmail" invisible="1"/>
+                        <field name="email_from" readonly="1" />
+                        <field name="date" readonly="1" />
+                        <field name="server_sharedmail_user" attrs="{'invisible':[('direction_sharedmail','!=','in')]}"/>
+                        <!--<field name="author_id"/>-->
+                        <newline/>
+                        <field name="subject" readonly="1" />
+                        <field name="body" colspan="4" readonly="1" />
+                        <newline/>
+                        <button name="%(sharedmail.action_reply_sharedmail_compose_message_wizard)d"
+                                string="Reply" type="action" icon="terp-mail-message-new"
+                                context="{'default_partner_ids':author_id and [author_id] or [],'default_composition_mode':'reply','pec_messages': True}"/>
+                        <newline/>
+
+                        <notebook colspan="6" >
+                            <page string="Recipients" attrs="{'invisible':[('direction_sharedmail','!=','in')]}">
+                                <field name="partner_ids"
+                                            context = " {
+                                                  'tree_view_ref' : 'sharedmail.message_sharedmail_partner_tree',
+                                                  'sharedmail_messages': True}"
+                                            nolabel="1" readonly="1"
+                                />
+                            </page>
+                            <page string="Replies">
+                                <field name="child_ids" nolabel="1"
+                                 readonly="1"
+                                 context = " {
+                                                  'form_view_ref' : 'sharedmail.message_sharedmail_form',
+                                                  'tree_view_ref' : 'sharedmail.message_sharedmail_tree',
+                                                  'sharedmail_messages': True}"
+                                  />
+                            </page>
+                            <page string="Attachment">
+                                <field name="attachment_ids" nolabel="1" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </group>
+
+                </form>
+            </field>
+        </record>
+
+        <record model='ir.ui.view' id='message_sharedmail_tree'>
+            <field name="name">message.sharedmail.tree</field>
+            <field name="model">mail.message</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <tree string="E-mail" create="false" delete="false">
+                    <field name="email_from" />
+                    <field name="date" />
+                    <field name="subject" />
+                    <!--<field name="sharedmail_server_user" string="Account"/>-->
+                    <field name="partner_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sharedmail_message_search_view" model="ir.ui.view">
+            <field name="name">message.search.form</field>
+            <field name="model">mail.message</field>
+            <field name="arch" type="xml">
+                <search string="Message">
+                   <field name="email_from" string="Sharedmail address"/>
+                   <field name="date" string="Date"/>
+                </search>
+            </field>
+        </record>
+
+        <record model='ir.actions.act_window' id='action_mail_sharedmail'>
+            <field name="name">Read Shared E-mail</field>
+            <field name="res_model">mail.message</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="sharedmail_message_search_view"/>
+            <field name="domain">[('parent_id','=',False),('direction_sharedmail', '=', 'in'),('server_sharedmail_id.user_sharedmail_ids','in',uid)]</field>
+            <field name="context">{
+                'sharedmail_messages': True,
+            }</field>
+        </record>
+
+        <record model='ir.actions.act_window' id='action_out_mail_sharedmail'>
+            <field name="name">Sent Shared E-mail</field>
+            <field name="res_model">mail.message</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="sharedmail_message_search_view"/>
+            <field name="domain">[
+                  ('server_sharedmail_id.sharedmail','=',True),
+                  ('direction_sharedmail', '=', 'out'),
+                  ('server_sharedmail_id.user_sharedmail_ids','in',uid)]</field>
+            <field name="context">{
+                'sharedmail_messages': True,
+            }</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="message_sharedmail_act_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="message_sharedmail_tree"/>
+            <field name="act_window_id" ref="action_mail_sharedmail"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="message_sharedmail_act_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="message_sharedmail_form"/>
+            <field name="act_window_id" ref="action_mail_sharedmail"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="out_message_sharedmail_act_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="message_sharedmail_tree"/>
+            <field name="act_window_id" ref="action_out_mail_sharedmail"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="out_message_sharedmail_act_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="message_sharedmail_form"/>
+            <field name="act_window_id" ref="action_out_mail_sharedmail"/>
+        </record>
+
+        <record id="mail_sharedmail_main" model="ir.ui.menu">
+            <field name="name">Shared E-mail</field>
+            <field name="parent_id" ref="mail.mail_feeds_main"/>
+            <field name="groups_id" eval="[(4, ref('base.group_sharedmail'))]"/>
+        </record>
+
+        <record id="menu_in_mail_sharedmail" model="ir.ui.menu">
+            <field name="name">Read Shared E-mail</field>
+            <field name="action" ref="action_mail_sharedmail"/>
+            <field name="parent_id" ref="mail_sharedmail_main"/>
+            <field name="groups_id" eval="[(4, ref('base.group_sharedmail'))]"/>
+        </record>
+
+        <record id="menu_out_mail_sharedmail" model="ir.ui.menu">
+            <field name="name">Sent Shared E-mail</field>
+            <field name="action" ref="action_out_mail_sharedmail"/>
+            <field name="parent_id" ref="mail_sharedmail_main"/>
+            <field name="groups_id" eval="[(4, ref('base.group_sharedmail'))]"/>
+        </record>
+
+        <record id="mail_write_sharedmail" model="ir.ui.menu">
+            <field name="name">Write Shared E-mail</field>
+            <field name="action" ref="action_sharedmail_mail_compose_message_wizard"/>
+            <field name="parent_id" ref="mail_sharedmail_main"/>
+            <field name="groups_id" eval="[(4, ref('base.group_sharedmail'))]"/>
+        </record>
+
+</data>
+</openerp>

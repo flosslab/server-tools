@@ -1,0 +1,321 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# * sharedmail
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: l10n-italy (7.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-25 16:46+0000\n"
+"PO-Revision-Date: 2015-11-13 15:21+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"Language-Team: English (United Kingdom) (http://www.transifex.com/oca/OCA-server-tools-8-0/language/en_GB/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: sharedmail
+#: model:ir.actions.act_window,name:sharedmail.action_mail_email
+#: model:ir.ui.menu,name:sharedmail.mail_email
+msgid "Read Shared E-mail"
+msgstr "Read Shared E-mail"
+
+#. module: sharedmail
+#: view:mail.compose.message:0
+msgid "Compose Email"
+msgstr "Compose Email"
+
+#. module: sharedmail
+#: view:mail.message:0
+msgid "Body"
+msgstr "Body"
+
+#. module: sharedmail
+#: selection:mail.message,err_type:0
+msgid "Undefined Error"
+msgstr "Undefined Error"
+
+#. module: sharedmail
+#: field:mail.message,server_sharedmail_id:0
+msgid "Server SharedMail"
+msgstr "Server SharedMail"
+
+#. module: sharedmail
+#: field:mail.message,direction_sharedmail:0
+msgid "Mail direction"
+msgstr "Mail direction"
+
+#. module: sharedmail
+#: model:ir.model,name:sharedmail.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: sharedmail
+#: field:ir.mail_server,in_server_sharedmail_id:0
+msgid "Incoming Shared Mail server"
+msgstr "Incoming Shared Mail server"
+
+#. module: sharedmail
+#: field:fetchmail.server,user_sharedmail_ids:0
+msgid "Users allowed to use this sharedmail server"
+msgstr "Users allowed to use this sharedmail server"
+
+#. module: sharedmail
+#: field:res.users,allowed_server_mail_ids:0
+msgid "Fetchmail sharedmail servers allowed to be used"
+msgstr "Fetchmail sharedmail servers allowed to be used"
+
+#. module: sharedmail
+#: field:fetchmail.server,sharedmail:0 field:ir.mail_server,sharedmail:0
+msgid "Shared Mail Server"
+msgstr "Shared Mail Server"
+
+#. module: sharedmail
+#: view:mail.message:0
+msgid "Reply"
+msgstr "Reply"
+
+#. module: sharedmail
+#: model:ir.actions.act_window,name:sharedmail.action_out_mail_sharedmail
+#: model:ir.ui.menu,name:sharedmail.menu_out_mail_sharedmail
+msgid "Read Shared E-mail"
+msgstr "Read Shared E-mail"
+
+#. module: sharedmail
+#: model:ir.ui.menu,name:sharedmail.mail_sent_sharedmail
+msgid "Sent Shared E-mail"
+msgstr "Sent Shared E-mail"
+
+#. module: sharedmail
+#: model:ir.ui.menu,name:sharedmail.mail_write_sharedmail
+msgid "Write Shared E-mail"
+msgstr "Write Shared E-mail"
+
+#. module: sharedmail
+#: field:mail.message,out_server_id:0
+msgid "Related Outgoing Server"
+msgstr "Related Outgoing Server"
+
+#. module: sharedmail
+#: field:mail.message,delivery_err_message_id:0
+msgid "Error Delivery Message"
+msgstr "Error Delivery Message"
+
+#. module: sharedmail
+#: field:mail.compose.message,server_id:0
+msgid "Server"
+msgstr "Server"
+
+#. module: sharedmail
+#: view:mail.compose.message:0
+msgid "Send"
+msgstr "Send"
+
+#. module: sharedmail
+#: selection:mail.message,err_type:0
+msgid "Recipient Adress Error"
+msgstr "Recipient Adress Error"
+
+#. module: sharedmail
+#: view:mail.message:0
+msgid "Replies"
+msgstr "Replies"
+
+#. module: sharedmail
+#: field:mail.message,recipient_addr:0
+msgid "Recipient Address"
+msgstr "Recipient Address"
+
+#. module: sharedmail
+#: model:ir.model,name:sharedmail.model_mail_mail
+msgid "Outgoing Mails"
+msgstr "Outgoing Mails"
+
+#. module: sharedmail
+#: model:ir.model,name:sharedmail.model_mail_message
+#: view:mail.message:0
+msgid "Message"
+msgstr "Message"
+
+#. module: sharedmail
+#: view:mail.compose.message:0
+msgid "or"
+msgstr "or"
+
+#. module: sharedmail
+#: code:addons/sharedmail/wizard/mail_compose_message.py:49
+#, python-format
+msgid "No mail for partner %s"
+msgstr "No mail for partner %s"
+
+#. module: sharedmail
+#: field:mail.message,inprogress_message_id:0
+msgid "Message In Progress"
+msgstr "Message In Progress"
+
+#. module: sharedmail
+#: view:mail.message:0
+msgid "Attachment"
+msgstr "Attachment"
+
+#. module: sharedmail
+#: selection:mail.message,err_type:0
+msgid "Recipient domain Error"
+msgstr "Recipient domain Error"
+
+#. module: sharedmail
+#: field:mail.message,message_ok:0
+msgid "Message OK"
+msgstr "Message OK"
+
+#. module: sharedmail
+#: field:mail.message,reception_message_id:0
+msgid "Reception Message"
+msgstr "Reception Message"
+
+#. module: sharedmail
+#: view:res.users:0
+msgid "Fetchmail servers mail"
+msgstr "Fetchmail servers mail"
+
+#. module: sharedmail
+#: field:fetchmail.server,out_server_id:0
+msgid "Outgoing Server"
+msgstr "Outgoing Server"
+
+#. module: sharedmail
+#: code:addons/sharedmail/model/mail_thread.py:302
+#: code:addons/sharedmail/model/mail_thread.py:345
+#, python-format
+msgid "Too many existing mails with message_id %s"
+msgstr "Too many existing mails with message_id %s"
+
+#. module: sharedmail
+#: view:mail.message:0
+msgid "Date"
+msgstr "Date"
+
+#. module: sharedmail
+#: field:mail.message,recipient_id:0
+msgid "Recipient"
+msgstr "Recipient"
+
+#. module: sharedmail
+#: view:mail.compose.message:0
+msgid "Subject..."
+msgstr "Subject..."
+
+#. module: sharedmail
+#: view:mail.compose.message:0
+msgid "Add contacts to notify..."
+msgstr "Add contacts to notify..."
+
+#. module: sharedmail
+#: selection:mail.message,err_type:0
+msgid "Virus Detected Error"
+msgstr "Virus Detected Error"
+
+#. module: sharedmail
+#: code:addons/sharedmail/model/mail_thread.py:261
+#: code:addons/sharedmail/model/mail_thread.py:272
+#: code:addons/sharedmail/model/mail_thread.py:301
+#: code:addons/sharedmail/model/mail_thread.py:344
+#: code:addons/sharedmail/wizard/mail_compose_message.py:48
+#, python-format
+msgid "Error"
+msgstr "Error"
+
+#. module: sharedmail
+#: view:mail.message:0
+msgid "Server Notification Log Messages"
+msgstr "Server Notification Log Messages"
+
+#. module: sharedmail
+#: view:fetchmail.server:0
+msgid "Configure allowed sharedmail users"
+msgstr "Shared Mail Users"
+
+#. module: sharedmail
+#: view:mail.compose.message:0
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: sharedmail
+#: view:mail.compose.message:0
+msgid "and"
+msgstr "and"
+
+#. module: sharedmail
+#: selection:mail.message,direction:0
+msgid "in"
+msgstr "in"
+
+#. module: sharedmail
+#: sql_constraint:ir.mail_server:0
+msgid "Incoming Server already in use"
+msgstr "Incoming Server already in use"
+
+#. module: sharedmail
+#: model:ir.model,name:sharedmail.model_res_users
+msgid "Users"
+msgstr "Users"
+
+#. module: sharedmail
+#: view:mail.compose.message:0
+msgid "Followers of"
+msgstr "Followers of"
+
+#. module: sharedmail
+#: selection:mail.message,direction:0
+msgid "out"
+msgstr "out"
+
+#. module: sharedmail
+#: field:fetchmail.server,force_create_partner_from_mail:0
+msgid "Force Create Partner"
+msgstr "Force Create Partner"
+
+#. module: sharedmail
+#: field:mail.message,no_reception_message_id:0
+msgid "No Reception Message"
+msgstr "No Reception Message"
+
+#. module: sharedmail
+#: help:fetchmail.server,force_create_partner_from_mail:0
+msgid ""
+"If checked then if there is no partner to link a fetched mail with,the "
+"system creates a contact partner"
+msgstr "If checked then if there is no partner to link a fetched mail with,the system creates a contact partner"
+
+#. module: sharedmail
+#: selection:mail.message,err_type:0
+msgid "No Error"
+msgstr "No Error"
+
+#. module: sharedmail
+#: view:mail.compose.message:0 view:mail.message:0
+msgid "Recipients"
+msgstr "Recipients"
+
+#. module: sharedmail
+#: model:ir.model,name:sharedmail.model_ir_mail_server
+msgid "ir.mail_server"
+msgstr "ir.mail_server"
+
+#. module: sharedmail
+#: field:mail.message,notice_delivery_err_message_id:0
+msgid "Notice Error Delivery Message"
+msgstr "Notice Error Delivery Message"
+
+#. module: sharedmail
+#: field:mail.message,cert_datetime:0
+msgid "Certified Date and Time "
+msgstr "Certified Date and Time "
+
+#. module: sharedmail
+#: model:ir.model,name:sharedmail.model_mail_thread
+msgid "Email Thread"
+msgstr "Email Thread"

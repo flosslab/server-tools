@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="0">
+        <record id="base.group_sharedmail" model="res.groups">
+            <field name="name">Shared E-mail reader</field>
+            <field name="comment">The user will have access to Shared E-mail</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+    </data>
+
+</openerp>

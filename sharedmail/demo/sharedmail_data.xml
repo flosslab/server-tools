@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <record model="res.users" id="base.user_root">
+            <field name="groups_id" eval="[(4, ref('base.group_sharedmail'))]"/>
+        </record>
+        <record model="fetchmail.server" id="imap_sharedmail_server">
+            <field name="name">IMAP Shared Mail</field>
+            <field name="type">imap</field>
+            <field name="server">imap.gmail.com</field>
+            <field name="port">993</field>
+            <field name="user">sendmail@flosslab.com</field>
+            <field name="password">test12345</field>
+            <field name="sharedmail" eval="True"></field>
+            <field name="is_ssl" eval="True"></field>
+            <field name="user_sharedmail_ids" eval="[(6, 0,[ref('base.user_root')])]"></field>
+        </record>
+        <record model="ir.mail_server" id="smtp_sharedmail_server">
+            <field name="name">SMTP Shared Mail</field>
+            <field name="smtp_host">smtp.gmail.com</field>
+            <field name="smtp_port">465</field>
+            <field name="smtp_user">sendmail@flosslab.com</field>
+            <field name="smtp_pass">test12345</field>
+            <field name="smtp_encryption">ssl</field>
+            <field name="in_server_sharedmail_id" ref="imap_sharedmail_server"></field>
+        </record>
+
+        <record model="mail.alias" id="sharedmail_user_alias">
+            <field name="alias_name">sendmail</field>
+            <field name="alias_contact">everyone</field>
+            <field name="alias_user_id" eval="int(1)"></field>
+            <field name="alias_force_thread_id" eval="int(1)"></field>
+            <field model="ir.model" name="alias_model_id" search="[('model','ilike','res.users')]"/>
+        </record>
+
+    </data>
+</openerp>
