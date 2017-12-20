@@ -25,7 +25,7 @@ msgstr "Leggi E-mail"
 
 #. module: sharedmail
 #: view:mail.compose.message:0
-msgid "Compose Email"
+msgid "Compose Shared Email"
 msgstr "Componi Email"
 
 #. module: sharedmail

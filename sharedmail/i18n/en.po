@@ -25,8 +25,8 @@ msgstr "Read Shared E-mail"
 
 #. module: sharedmail
 #: view:mail.compose.message:0
-msgid "Compose Email"
-msgstr "Compose Email"
+msgid "Compose Shared Email"
+msgstr "Compose Shared Email"
 
 #. module: sharedmail
 #: view:mail.message:0
@@ -79,8 +79,8 @@ msgid "Reply"
 msgstr "Reply"
 
 #. module: sharedmail
-#: model:ir.actions.act_window,name:sharedmail.action_out_mail_sharedmail
-#: model:ir.ui.menu,name:sharedmail.menu_out_mail_sharedmail
+#: model:ir.actions.act_window,name:sharedmail.action_mail_sharedmail
+#: model:ir.ui.menu,name:sharedmail.menu_in_mail_sharedmail
 msgid "Read Shared E-mail"
 msgstr "Read Shared E-mail"
 
