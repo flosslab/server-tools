@@ -152,6 +152,12 @@ msgid "No mail for partner %s"
 msgstr "No mail for partner %s"
 
 #. module: sharedmail
+#: field:mail.message,server_sharedmail_state:0
+#: view:mail.message:0
+msgid "Mail state"
+msgstr "Mail state"
+
+#. module: sharedmail
 #: field:mail.message,inprogress_message_id:0
 msgid "Message In Progress"
 msgstr "Message In Progress"

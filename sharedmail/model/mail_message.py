@@ -21,8 +21,7 @@ class MailMessage(orm.Model):
     _inherit = "mail.message"
 
 
-    def _get_out_server_sharedmail(self, cr, uid, ids, name,
-                        args, context=None):
+    def _get_out_server_sharedmail(self, cr, uid, ids, name, args, context=None):
         res = {}
         if not context:
             context = {}
@@ -31,6 +30,19 @@ class MailMessage(orm.Model):
             if msg.server_sharedmail_id:
                 if msg.server_sharedmail_id.out_server_sharedmail_id:
                     res[msg.id] = msg.server_sharedmail_id.out_server_sharedmail_id[0].id
+        return res
+
+    def _get_mail_state(self,cr, uid, ids, name, args, context=None):
+        if isinstance(ids, (list, tuple)) and not len(ids):
+            return []
+        if isinstance(ids, (long, int)):
+            ids = [ids]
+        res = dict.fromkeys(ids, False)
+        for msg in self.browse(cr, uid, ids):
+            mail_mail_obj = self.pool.get('mail.mail')
+            mail_ids = mail_mail_obj.search(cr, uid, [('mail_message_id', '=', msg.id)])
+            for mail in mail_mail_obj.browse(cr, uid, mail_ids):
+                res[msg.id] = mail.state
         return res
 
     _columns = {
@@ -45,7 +57,9 @@ class MailMessage(orm.Model):
             ('out', 'out'),
             ], 'Shared E-mail direction'),
         'server_sharedmail_user': fields.related('server_sharedmail_id', 'user', type='char', readonly=True, string='Account'),
-
+        'server_sharedmail_state': fields.function(
+            _get_mail_state, type='char',
+            string='Mail State')
     }
 
     _defaults = {
