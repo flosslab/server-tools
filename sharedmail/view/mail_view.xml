@@ -62,7 +62,7 @@
                         <newline/>
 
                         <notebook colspan="6" >
-                            <page string="Recipients" attrs="{'invisible':[('direction_sharedmail','!=','in')]}">
+                            <page string="Recipients" attrs="{'invisible':[('direction_sharedmail','!=','out')]}">
                                 <field name="partner_ids"
                                             context = " {
                                                   'tree_view_ref' : 'sharedmail.message_sharedmail_partner_tree',
@@ -99,9 +99,10 @@
                     <field name="email_from" />
                     <field name="date" />
                     <field name="subject" />
-                    <field name="server_sharedmail_state" attrs="{'invisible':[('direction_sharedmail','=','in')]}"/>
                     <!--<field name="sharedmail_server_user" string="Account"/>-->
-                    <field name="partner_ids"/>
+                    <field name="server_sharedmail_user" attrs="{'invisible':[('direction_sharedmail','!=','in')]}"/>
+                    <field name="partner_ids" attrs="{'invisible':[('direction_sharedmail','!=','out')]}"/>
+                    <field name="server_sharedmail_state" attrs="{'invisible':[('direction_sharedmail','!=','out')]}"/>
                 </tree>
             </field>
         </record>

@@ -25,6 +25,7 @@ class MailThread(orm.Model):
         # if author_id:
         #     msg_dict['author_id'] = author_id
         msg_dict['server_sharedmail_id'] = context.get('fetchmail_server_id')
+        msg_dict['sharedmail_type'] = "sharedmail"
         return msg_dict
 
     # Impostando l'alias su TUTTI questa parte di codice non dovrebbe essere necessaria

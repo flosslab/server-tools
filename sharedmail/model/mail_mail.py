@@ -50,6 +50,7 @@ class MailMail(orm.Model):
                     'email_from': server.smtp_user,
                     'mail_server_id': server.id,
                     'server_sharedmail_id': in_server_sharedmail_id,
+                    'sharedmail_type': 'sharedmail',
                     'out_server_sharedmail_id': server.id,
                     'direction_sharedmail': 'out'
                 }, context=context)

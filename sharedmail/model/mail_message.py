@@ -56,6 +56,9 @@ class MailMessage(orm.Model):
             ('in', 'in'),
             ('out', 'out'),
             ], 'Shared E-mail direction'),
+        'sharedmail_type': fields.selection([
+            ('sharedmail', 'Shared Mail'),
+        ], 'SharedMail Type', readonly=True),
         'server_sharedmail_user': fields.related('server_sharedmail_id', 'user', type='char', readonly=True, string='Account'),
         'server_sharedmail_state': fields.function(
             _get_mail_state, type='char',
