@@ -216,7 +216,7 @@ msgstr ""
 #. module: sharedmail
 #: view:fetchmail.server:0
 msgid "Configure allowed sharedmail users"
-msgstr "Utenti Shared Mail"
+msgstr "Utenti Shared Mail Server"
 
 #. module: sharedmail
 #: view:mail.compose.message:0
