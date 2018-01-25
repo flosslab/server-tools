@@ -17,7 +17,7 @@ class FetchmailServer(models.Model):
     _inherit = "fetchmail.server"
 
     sharedmail = fields.Boolean(
-        "Shared Mail Server",
+        "Account Shared Mail",
         help="Check if this server is Shared Mail")
 
     user_sharedmail_ids = fields.Many2many(

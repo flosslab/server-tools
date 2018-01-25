@@ -21,7 +21,7 @@ class IrMailServer(models.Model):
         string='Incoming Shared Mail server')
 
     sharedmail = fields.Boolean(
-        "Shared Mail Server",
+        "Account Shared Mail",
         help="Check if this server is Shared Mail")
 
     _sql_constraints = [

@@ -71,7 +71,7 @@ msgstr "Fetchmail sharedmail abilitati"
 #. module: sharedmail
 #: field:fetchmail.server,sharedmail:0 field:ir.mail_server,sharedmail:0
 msgid "Shared Mail Server"
-msgstr "Shared Mail Server"
+msgstr "Account Shared Mail"
 
 #. module: sharedmail
 #: view:mail.message:0
@@ -216,7 +216,7 @@ msgstr ""
 #. module: sharedmail
 #: view:fetchmail.server:0
 msgid "Configure allowed sharedmail users"
-msgstr "Utenti Shared Mail Server"
+msgstr "Utenti account Shared Mail"
 
 #. module: sharedmail
 #: view:mail.compose.message:0
