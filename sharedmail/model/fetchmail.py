@@ -20,6 +20,9 @@ class FetchmailServer(models.Model):
         "Account Shared Mail",
         help="Check if this server is Shared Mail")
 
+    sharedmail_account_alias = fields.Many2one(
+            'mail.alias', 'Alias account Shared Mail', domain=[('alias_name', '!=', False)])
+
     user_sharedmail_ids = fields.Many2many(
         'res.users',
         'fetchmail_server_sharedmail_user_rel', 'server_id', 'user_id',
