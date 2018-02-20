@@ -51,7 +51,7 @@
                         <field name="date" readonly="1" />
                         <field name="server_sharedmail_state" attrs="{'invisible':[('direction_sharedmail','=','in')]}"/>
                         <field name="server_sharedmail_user" attrs="{'invisible':[('direction_sharedmail','!=','in')]}"/>
-                        <!--<field name="author_id"/>-->
+                        <field name="author_id"/>
                         <newline/>
                         <field name="subject" readonly="1" />
                         <field name="body" colspan="4" readonly="1" />

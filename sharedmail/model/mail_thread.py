@@ -10,6 +10,7 @@
 ##############################################################################
 
 from openerp.osv import orm
+from openerp import api
 
 class MailThread(orm.Model):
     _inherit = 'mail.thread'
@@ -27,6 +28,28 @@ class MailThread(orm.Model):
         msg_dict['server_sharedmail_id'] = context.get('fetchmail_server_id')
         msg_dict['sharedmail_type'] = "sharedmail"
         return msg_dict
+
+    @api.cr_uid_ids_context
+    def message_post(self, cr, uid, thread_id, body='',
+                     subject=None, type='notification',
+                     subtype=None, parent_id=False,
+                     attachments=None, context=None,
+                     content_subtype='html', **kwargs):
+        if not context:
+            context = {}
+        if 'reply_sharedmail' in context and context['reply_sharedmail']:
+            return super(MailThread, self).message_post(
+                cr, uid, 0, body=body,
+                subject=subject, type=type,
+                subtype=subtype, parent_id=parent_id,
+                attachments=attachments, context=context,
+                content_subtype=content_subtype, **kwargs)
+        return super(MailThread, self).message_post(
+            cr, uid, thread_id, body=body,
+            subject=subject, type=type,
+            subtype=subtype, parent_id=parent_id,
+            attachments=attachments, context=context,
+            content_subtype=content_subtype, **kwargs)
 
     # Impostando l'alias su TUTTI questa parte di codice non dovrebbe essere necessaria
     # def _FindPartnersPec(

@@ -22,6 +22,7 @@
             <field name="smtp_user">sendmail@flosslab.com</field>
             <field name="smtp_pass">test12345</field>
             <field name="smtp_encryption">ssl</field>
+            <field name="sharedmail" eval="True"></field>
             <field name="in_server_sharedmail_id" ref="imap_sharedmail_server"></field>
         </record>
 
