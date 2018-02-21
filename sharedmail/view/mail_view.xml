@@ -43,25 +43,31 @@
             <field name="arch" type="xml">
                 <form string="Pec" create="false" edit="false" delete="false">
                     <header>
-
-                    </header>
-                    <group>
-                        <field name="direction_sharedmail" invisible="1"/>
-                        <field name="email_from" readonly="1" />
-                        <field name="date" readonly="1" />
-                        <field name="server_sharedmail_state" attrs="{'invisible':[('direction_sharedmail','=','in')]}"/>
-                        <field name="server_sharedmail_user" attrs="{'invisible':[('direction_sharedmail','!=','in')]}"/>
-                        <field name="author_id"/>
-                        <newline/>
-                        <field name="subject" readonly="1" />
-                        <field name="body" colspan="4" readonly="1" />
-                        <newline/>
                         <button name="%(sharedmail.action_reply_sharedmail_compose_message_wizard)d"
                                 string="Reply" type="action" icon="terp-mail-message-new"
                                 context="{'default_partner_ids':author_id and [author_id] or [],'default_composition_mode':'reply','pec_messages': True}"/>
-                        <newline/>
-
+                        <field name="direction_sharedmail" invisible="1"/>
+                    </header>
+                    <sheet>
+                        <div class="gedoc_header">
+                            <group col="4">
+                                <field name="server_sharedmail_user" attrs="{'invisible':[('direction_sharedmail','!=','in')]}"/>
+                                <newline/>
+                                <field name="email_from" readonly="1" />
+                                <field name="date" readonly="1" />
+                                <field name="author_id"/>
+                            </group>
+                        </div>
+                        <group>
+                            <field name="server_sharedmail_state" attrs="{'invisible':[('direction_sharedmail','=','in')]}"/>
+                            <newline/>
+                            <field name="subject" readonly="1" />
+                            <field name="body" colspan="4" readonly="1" string="Messaggio"/>
+                        </group>
                         <notebook colspan="6" >
+                            <page string="Attachment">
+                                <field name="attachment_ids" nolabel="1" readonly="1"/>
+                            </page>
                             <page string="Recipients" attrs="{'invisible':[('direction_sharedmail','!=','out')]}">
                                 <field name="partner_ids"
                                             context = " {
@@ -79,12 +85,8 @@
                                                   'sharedmail_messages': True}"
                                   />
                             </page>
-                            <page string="Attachment">
-                                <field name="attachment_ids" nolabel="1" readonly="1"/>
-                            </page>
                         </notebook>
-                    </group>
-
+                    </sheet>
                 </form>
             </field>
         </record>
