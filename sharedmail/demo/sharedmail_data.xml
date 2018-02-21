@@ -5,7 +5,7 @@
             <field name="groups_id" eval="[(4, ref('base.group_sharedmail'))]"/>
         </record>
         <record model="fetchmail.server" id="imap_sharedmail_server">
-            <field name="name">IMAP Shared Mail</field>
+            <field name="name">sendmail@flosslab.com</field>
             <field name="type">imap</field>
             <field name="server">imap.gmail.com</field>
             <field name="port">993</field>
@@ -16,7 +16,7 @@
             <field name="user_sharedmail_ids" eval="[(6, 0,[ref('base.user_root')])]"></field>
         </record>
         <record model="ir.mail_server" id="smtp_sharedmail_server">
-            <field name="name">SMTP Shared Mail</field>
+            <field name="name">sendmail@flosslab.com</field>
             <field name="smtp_host">smtp.gmail.com</field>
             <field name="smtp_port">465</field>
             <field name="smtp_user">sendmail@flosslab.com</field>
