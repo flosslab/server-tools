@@ -82,8 +82,8 @@
                                  context = " {
                                                   'form_view_ref' : 'sharedmail.message_sharedmail_form',
                                                   'tree_view_ref' : 'sharedmail.message_sharedmail_tree',
-                                                  'sharedmail_messages': True}"
-                                  />
+                                                  'sharedmail_messages': True}">
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
@@ -103,8 +103,8 @@
                     <field name="subject" />
                     <!--<field name="sharedmail_server_user" string="Account"/>-->
                     <field name="server_sharedmail_user" attrs="{'invisible':[('direction_sharedmail','!=','in')]}"/>
-                    <field name="partner_ids" attrs="{'invisible':[('direction_sharedmail','!=','out')]}"/>
-                    <field name="server_sharedmail_state" attrs="{'invisible':[('direction_sharedmail','!=','out')]}"/>
+                    <!--<field name="partner_ids" attrs="{'invisible':[('direction_sharedmail','!=','out')]}"/>-->
+                    <!--<field name="server_sharedmail_state" attrs="{'invisible':[('direction_sharedmail','!=','out')]}"/>-->
                 </tree>
             </field>
         </record>
