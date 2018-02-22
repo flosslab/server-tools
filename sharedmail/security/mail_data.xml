@@ -2,12 +2,12 @@
 <openerp>
     <data noupdate="0">
         <record id="base.group_sharedmail_reader" model="res.groups">
-            <field name="name">Shared E-mail reader</field>
+            <field name="name">Leggi E-mail</field>
             <field name="comment">The user will have access to Shared E-mail to read</field>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         </record>
         <record id="base.group_sharedmail_writer" model="res.groups">
-            <field name="name">Shared E-mail writer</field>
+            <field name="name">Invia E-mail</field>
             <field name="comment">The user will have access to Shared E-mail to write</field>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         </record>
