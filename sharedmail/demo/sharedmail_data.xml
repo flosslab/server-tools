@@ -2,7 +2,8 @@
 <openerp>
     <data>
         <record model="res.users" id="base.user_root">
-            <field name="groups_id" eval="[(4, ref('base.group_sharedmail'))]"/>
+            <field name="groups_id" eval="[(4, ref('base.group_sharedmail_reader'))]"/>
+            <field name="groups_id" eval="[(4, ref('base.group_sharedmail_writer'))]"/>
         </record>
         <record model="fetchmail.server" id="imap_sharedmail_server">
             <field name="name">sendmail@flosslab.com</field>

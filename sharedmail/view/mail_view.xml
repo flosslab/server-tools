@@ -45,11 +45,12 @@
                     <header>
                         <button name="%(sharedmail.action_reply_sharedmail_compose_message_wizard)d"
                                 string="Rispondi" type="action" icon="terp-mail-message-new"
-                                context="{'default_partner_ids':author_id and [author_id] or [],'default_composition_mode':'reply','pec_messages': True}"/>
+                                context="{'default_partner_ids':author_id and [author_id] or [],'default_composition_mode':'reply','pec_messages': True}"
+                                groups="base.group_sharedmail_writer"/>
                         <field name="direction_sharedmail" invisible="1"/>
                     </header>
                     <sheet>
-                        <div class="gedoc_header">
+                        <div class="message_header">
                             <group col="4">
                                 <field name="server_sharedmail_user" attrs="{'invisible':[('direction_sharedmail','!=','in')]}"/>
                                 <newline/>
@@ -58,11 +59,13 @@
                                 <field name="author_id"/>
                             </group>
                         </div>
-                        <group>
+                        <group class="message_data">
                             <field name="server_sharedmail_state" attrs="{'invisible':[('direction_sharedmail','=','in')]}"/>
                             <newline/>
-                            <field name="subject" readonly="1" />
-                            <field name="body" colspan="4" readonly="1" string="Messaggio"/>
+                            <field name="subject" colspan="4" readonly="1" />
+                            <group class="body-message-container">
+                                <field name="body" colspan="4" readonly="1" string="Corpo del messaggio"/>
+                            </group>
                         </group>
                         <notebook colspan="6" >
                             <page string="Attachment">
@@ -76,7 +79,7 @@
                                             nolabel="1" readonly="1"
                                 />
                             </page>
-                            <page string="Risposte">
+                            <page string="Risposte" groups="base.group_sharedmail_writer">
                                 <field name="child_ids" nolabel="1"
                                  readonly="1"
                                  context = " {
@@ -178,28 +181,28 @@
         <record id="mail_sharedmail_main" model="ir.ui.menu">
             <field name="name">Shared E-mail</field>
             <field name="parent_id" ref="mail.mail_feeds_main"/>
-            <field name="groups_id" eval="[(4, ref('base.group_sharedmail'))]"/>
+            <field name="groups_id" eval="[(4, ref('base.group_sharedmail_reader'))]"/>
         </record>
 
         <record id="menu_in_mail_sharedmail" model="ir.ui.menu">
             <field name="name">Read Shared E-mail</field>
             <field name="action" ref="action_mail_sharedmail"/>
             <field name="parent_id" ref="mail_sharedmail_main"/>
-            <field name="groups_id" eval="[(4, ref('base.group_sharedmail'))]"/>
+            <field name="groups_id" eval="[(4, ref('base.group_sharedmail_reader'))]"/>
         </record>
 
         <record id="menu_out_mail_sharedmail" model="ir.ui.menu">
             <field name="name">Sent Shared E-mail</field>
             <field name="action" ref="action_out_mail_sharedmail"/>
             <field name="parent_id" ref="mail_sharedmail_main"/>
-            <field name="groups_id" eval="[(4, ref('base.group_sharedmail'))]"/>
+            <field name="groups_id" eval="[(4, ref('base.group_sharedmail_writer'))]"/>
         </record>
 
         <record id="mail_write_sharedmail" model="ir.ui.menu">
             <field name="name">Write Shared E-mail</field>
             <field name="action" ref="action_sharedmail_mail_compose_message_wizard"/>
             <field name="parent_id" ref="mail_sharedmail_main"/>
-            <field name="groups_id" eval="[(4, ref('base.group_sharedmail'))]"/>
+            <field name="groups_id" eval="[(4, ref('base.group_sharedmail_writer'))]"/>
         </record>
 
 </data>
