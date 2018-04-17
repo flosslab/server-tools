@@ -11,6 +11,7 @@
 
 from openerp.osv import orm
 from openerp import api
+import email, xmlrpclib
 
 class MailThread(orm.Model):
     _inherit = 'mail.thread'
@@ -50,6 +51,55 @@ class MailThread(orm.Model):
             subtype=subtype, parent_id=parent_id,
             attachments=attachments, context=context,
             content_subtype=content_subtype, **kwargs)
+
+    def message_route(self, cr, uid, message, message_dict, model=None, thread_id=None,
+                      custom_values=None, context=None):
+        res = super(MailThread, self).message_route(cr, uid, message, message_dict, model, thread_id, custom_values, context)
+        if len(res) > 1:
+            fetchmail_server_obj = self.pool.get('fetchmail.server')
+            for alias_index, alias_item in enumerate(res):
+                if alias_item[4]:
+                    mail_alias = alias_item[4]
+                if mail_alias.id:
+                    fetchmail_server_ids = fetchmail_server_obj.search(cr, uid, [
+                        ('sharedmail_account_alias', '=', mail_alias.id)], context=context)
+                    fetchmail_server = fetchmail_server_obj.browse(cr, uid, fetchmail_server_ids)
+                if fetchmail_server.id and 'fetchmail_server_id' in context and fetchmail_server.id == context[
+                    'fetchmail_server_id']:
+                    pass
+                else:
+                    res.pop(alias_index)
+        return res
+
+    def message_process(self, cr, uid, model, message, custom_values=None,
+                        save_original=False, strip_attachments=False,
+                        thread_id=None, context=None):
+        if context is None:
+            context = {}
+        fetchmail_server_obj = self.pool.get('fetchmail.server')
+        if fetchmail_server_obj.browse(cr, uid, context['fetchmail_server_id']).sharedmail:
+            # extract message bytes - we are forced to pass the message as binary because
+            # we don't know its encoding until we parse its headers and hence can't
+            # convert it to utf-8 for transport between the mailgate script and here.
+            if isinstance(message, xmlrpclib.Binary):
+                message = str(message.data)
+            # Warning: message_from_string doesn't always work correctly on unicode,
+            # we must use utf-8 strings here :-(
+            if isinstance(message, unicode):
+                message = message.encode('utf-8')
+            msg_txt = email.message_from_string(message)
+
+            # parse the message, verify we are not in a loop by checking message_id is not duplicated
+            msg = self.message_parse(cr, uid, msg_txt, save_original=save_original, context=context)
+            if strip_attachments:
+                msg.pop('attachments', None)
+
+            # find possible routes for the message
+            routes = self.message_route(cr, uid, msg_txt, msg, model, thread_id, custom_values, context=context)
+            thread_id = self.message_route_process(cr, uid, msg_txt, msg, routes, context=context)
+        else:
+            return super(MailThread, self).message_process(cr, uid, model, message, custom_values, save_original, strip_attachments, thread_id, context)
+        return thread_id
 
     # Impostando l'alias su TUTTI questa parte di codice non dovrebbe essere necessaria
     # def _FindPartnersPec(
