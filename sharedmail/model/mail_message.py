@@ -77,7 +77,7 @@ class MailMessage(orm.Model):
     ):
         if context is None:
             context = {}
-        if context.get('sharedmail_messages') :
+        if context.get('sharedmail_messages'):
             return super(orm.Model, self)._search(
                 cr, uid, args, offset=offset, limit=limit, order=order,
                 context=context, count=count,
