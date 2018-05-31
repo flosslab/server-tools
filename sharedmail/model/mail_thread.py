@@ -27,8 +27,12 @@ class MailThread(orm.Model):
         #     cr, uid, message, message['From'], context=context)
         # if author_id:
         #     msg_dict['author_id'] = author_id
-        msg_dict['server_sharedmail_id'] = context.get('fetchmail_server_id')
-        msg_dict['sharedmail_type'] = "sharedmail"
+        server = self.pool.get('fetchmail.server').browse(cr, uid, context.get('fetchmail_server_id'))
+        if server.sharedmail:
+            msg_dict['server_sharedmail_id'] = context.get('fetchmail_server_id')
+            msg_dict['sharedmail_type'] = "sharedmail"
+            msg_dict['direction_sharedmail'] = "in"
+            msg_dict['sharedmail_state'] = "new"
         return msg_dict
 
     @api.cr_uid_ids_context

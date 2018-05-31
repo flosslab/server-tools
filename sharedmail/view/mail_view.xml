@@ -7,19 +7,17 @@
             <field name="model">mail.message</field>
             <field name="inherit_id" ref="mail.view_message_form"/>
             <field name="arch" type="xml">
-                <field name="subtype_id" position="after" >
-                    <field name="direction_sharedmail" groups="base.group_erp_manager" />
+                <field name="body" position="before">
+                    <group string="Info E-mail" col="4" attrs="{'invisible':[('server_sharedmail_id','=',False)]}" nolabel="1">
+                        <field name="server_sharedmail_id"/>
+                        <field name="out_server_sharedmail_id"/>
+                        <field name="cert_datetime"/>
+                        <field name="direction_sharedmail"/>
+                    </group>
                 </field>
-                <field name="body" position="replace" >
-                    <notebook>
-                        <page string="Body">
-                            <field name="body"/>
-                        </page>
-                    </notebook>
-                </field>
-                <field name="model" position="before" >
-                    <field name="server_sharedmail_id" />
-                    <field name="out_server_sharedmail_id" />
+                <field name="email_from" position="after">
+                    <field name="sharedmail_to" attrs="{'invisible':[('server_sharedmail_id','=',False)]}"/>
+                    <field name="sharedmail_cc" attrs="{'invisible':[('server_sharedmail_id','=',False)]}"/>
                 </field>
             </field>
         </record>

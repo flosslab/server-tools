@@ -67,10 +67,6 @@ class MailMessage(orm.Model):
             string='Mail State')
     }
 
-    _defaults = {
-        'direction_sharedmail': 'in'
-    }
-
     def _search(
         self, cr, uid, args, offset=0, limit=None, order=None,
         context=None, count=False, access_rights_uid=None
