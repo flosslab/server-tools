@@ -73,6 +73,11 @@ class MailMessage(orm.Model):
     ):
         if context is None:
             context = {}
+        if context and context.has_key('fetchmail_server_id') and context['fetchmail_server_id']:
+            fetchmail_server_obj = self.pool.get('fetchmail.server')
+            fetchmail_server = fetchmail_server_obj.browse(cr, uid, context['fetchmail_server_id'])
+            if fetchmail_server.sharedmail:
+                args.append(('server_sharedmail_id', '=', context['fetchmail_server_id']))
         if context.get('sharedmail_messages'):
             return super(orm.Model, self)._search(
                 cr, uid, args, offset=offset, limit=limit, order=order,
