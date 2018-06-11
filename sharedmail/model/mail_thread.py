@@ -73,9 +73,10 @@ class MailThread(orm.Model):
             if fetchmail_server.sharedmail:
                 new_res = []
                 for route in res:
+                    mail_alias = None
                     if route[4]:
                         mail_alias = route[4]
-                    if mail_alias.id:
+                    if mail_alias and mail_alias.id:
                         fetchmail_server_ids = fetchmail_server_obj.search(cr, uid, [
                             ('sharedmail_account_alias', '=', mail_alias.id)
                         ], context=context)
