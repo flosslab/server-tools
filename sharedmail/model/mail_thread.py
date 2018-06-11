@@ -84,5 +84,7 @@ class MailThread(orm.Model):
                         for sharedmail_fetchmail_server in sharedmail_fetchmail_servers:
                             if fetchmail_server.id == sharedmail_fetchmail_server.id:
                                 new_res.append(route)
+                    else:
+                        new_res.append(route)
                 return new_res
         return res
