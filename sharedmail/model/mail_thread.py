@@ -20,7 +20,7 @@ class MailThread(orm.Model):
     def message_parse(self, cr, uid, message, save_original=False, context=None):
         if context is None:
             context = {}
-        msg_dict = super(MailThread, self).message_parse(cr, uid, message, save_original=False, context=context)
+        msg_dict = super(MailThread, self).message_parse(cr, uid, message, save_original=save_original, context=context)
         server = self.pool.get('fetchmail.server').browse(cr, uid, context.get('fetchmail_server_id'))
         if server.sharedmail:
             msg_dict['server_sharedmail_id'] = context.get('fetchmail_server_id')
