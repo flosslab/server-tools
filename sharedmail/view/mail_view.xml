@@ -72,6 +72,7 @@
                             <page string="Attachment">
                                 <field name="attachment_ids" nolabel="1" readonly="1"/>
                             </page>
+                            <!--
                             <page string="Recipients" attrs="{'invisible':[('direction_sharedmail','!=','out')]}">
                                 <field name="partner_ids"
                                             context = " {
@@ -80,6 +81,7 @@
                                             nolabel="1" readonly="1"
                                 />
                             </page>
+                            -->
                             <page string="Risposte" groups="base.group_sharedmail_writer">
                                 <field name="child_ids" nolabel="1"
                                  readonly="1"
