@@ -28,7 +28,7 @@ msgstr ""
 #: code:addons/password_security/models/res_users.py:145
 #, python-format
 msgid "Cannot use the most recent %d passwords"
-msgstr ""
+msgstr "Non puoi utilizzare le ultime %d password"
 
 #. module: password_security
 #: model:ir.model.fields,field_description:password_security.field_res_company_password_length
@@ -80,7 +80,7 @@ msgstr ""
 #. module: password_security
 #: model:ir.ui.view,arch_db:password_security.view_company_form
 msgid "Extra"
-msgstr ""
+msgstr "Extra"
 
 #. module: password_security
 #: model:ir.model.fields,field_description:password_security.field_res_company_password_history
@@ -120,45 +120,45 @@ msgstr ""
 #. module: password_security
 #: model:ir.model.fields,field_description:password_security.field_res_company_password_lower
 msgid "Lowercase"
-msgstr ""
+msgstr "minuscolo"
 
 #. module: password_security
 #: code:addons/password_security/models/res_users.py:51
 #, python-format
 msgid "Lowercase letter"
-msgstr ""
+msgstr "lettere minuscole"
 
 #. module: password_security
 #: model:ir.model.fields,field_description:password_security.field_res_company_password_minimum
 msgid "Minimum Hours"
-msgstr ""
+msgstr "Minime ore"
 
 #. module: password_security
 #: model:ir.model.fields,help:password_security.field_res_company_password_length
 msgid "Minimum number of characters"
-msgstr ""
+msgstr "Numero minimo di caratteri"
 
 #. module: password_security
 #: code:addons/password_security/models/res_users.py:59
 #, python-format
 msgid "Must contain the following:"
-msgstr ""
+msgstr "Deve avere queste caratteristiche"
 
 #. module: password_security
 #: model:ir.model.fields,field_description:password_security.field_res_company_password_numeric
 msgid "Numeric"
-msgstr ""
+msgstr "Numerico"
 
 #. module: password_security
 #: code:addons/password_security/models/res_users.py:55
 #, python-format
 msgid "Numeric digit"
-msgstr ""
+msgstr "Carattere numerico"
 
 #. module: password_security
 #: model:ir.model.fields,field_description:password_security.field_res_users_password_history_ids
 msgid "Password History"
-msgstr ""
+msgstr "Storico password"
 
 #. module: password_security
 #: model:ir.ui.view,arch_db:password_security.view_company_form
@@ -169,7 +169,7 @@ msgstr ""
 #: code:addons/password_security/models/res_users.py:62
 #, python-format
 msgid "Password must be %d characters or more."
-msgstr ""
+msgstr "La password deve avere %d o piu' caratteri"
 
 #. module: password_security
 #: code:addons/password_security/models/res_users.py:121
@@ -177,48 +177,48 @@ msgstr ""
 msgid ""
 "Passwords can only be reset every %d hour(s). Please contact an "
 "administrator for assistance."
-msgstr ""
+msgstr "La password puo' essere resettata ogni %d ore. Please contact an"
 
 #. module: password_security
 #: model:ir.model.fields,help:password_security.field_res_company_password_lower
 msgid "Require lowercase letters"
-msgstr ""
+msgstr "Richieste lettere minuscole"
 
 #. module: password_security
 #: model:ir.model.fields,help:password_security.field_res_company_password_numeric
 msgid "Require numeric digits"
-msgstr ""
+msgstr "Richiesti caratteri numerici"
 
 #. module: password_security
 #: model:ir.model.fields,help:password_security.field_res_company_password_special
 msgid "Require special characters"
-msgstr ""
+msgstr "Richiesti caratteri speciali"
 
 #. module: password_security
 #: model:ir.model.fields,help:password_security.field_res_company_password_upper
 msgid "Require uppercase letters"
-msgstr ""
+msgstr "Richieste lettere maiuscole"
 
 #. module: password_security
 #: model:ir.ui.view,arch_db:password_security.view_company_form
 msgid "Required Characters"
-msgstr ""
+msgstr "Richiesti caratteri"
 
 #. module: password_security
 #: model:ir.model,name:password_security.model_res_users_pass_history
 msgid "Res Users Password History"
-msgstr ""
+msgstr "Storico password Res Users"
 
 #. module: password_security
 #: model:ir.model.fields,field_description:password_security.field_res_company_password_special
 msgid "Special"
-msgstr ""
+msgstr "Speciali"
 
 #. module: password_security
 #: code:addons/password_security/models/res_users.py:57
 #, python-format
 msgid "Special character"
-msgstr ""
+msgstr "Carattere speciale"
 
 #. module: password_security
 #: model:ir.ui.view,arch_db:password_security.view_company_form
@@ -228,13 +228,13 @@ msgstr ""
 #. module: password_security
 #: model:ir.model.fields,field_description:password_security.field_res_company_password_upper
 msgid "Uppercase"
-msgstr ""
+msgstr "Maiuscolo"
 
 #. module: password_security
 #: code:addons/password_security/models/res_users.py:53
 #, python-format
 msgid "Uppercase letter"
-msgstr ""
+msgstr "Lettere maiuscole"
 
 #. module: password_security
 #: model:ir.model.fields,field_description:password_security.field_res_users_pass_history_user_id
