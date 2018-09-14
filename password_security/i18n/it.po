@@ -169,7 +169,7 @@ msgstr ""
 #: code:addons/password_security/models/res_users.py:62
 #, python-format
 msgid "Password must be %d characters or more."
-msgstr "La password deve avere %d o piu' caratteri"
+msgstr "La password deve avere %d o piu' caratteri."
 
 #. module: password_security
 #: code:addons/password_security/models/res_users.py:121
@@ -177,7 +177,7 @@ msgstr "La password deve avere %d o piu' caratteri"
 msgid ""
 "Passwords can only be reset every %d hour(s). Please contact an "
 "administrator for assistance."
-msgstr "La password puo' essere resettata ogni %d ore. Please contact an"
+msgstr "La password puo' essere resettata ogni %d ore."
 
 #. module: password_security
 #: model:ir.model.fields,help:password_security.field_res_company_password_lower
