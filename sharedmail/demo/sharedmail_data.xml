@@ -4,6 +4,15 @@
         <record model="res.users" id="base.user_root">
             <field name="groups_id" eval="[(4, ref('base.group_sharedmail_reader')),(4, ref('base.group_sharedmail_writer'))]"/>
         </record>
+
+        <record model="mail.alias" id="sharedmail_user_alias">
+            <field name="alias_name">sendmail</field>
+            <field name="alias_contact">everyone</field>
+            <field name="alias_user_id" eval="int(1)"></field>
+            <field name="alias_force_thread_id" eval="int(1)"></field>
+            <field model="ir.model" name="alias_model_id" search="[('model','ilike','res.users')]"/>
+        </record>
+
         <record model="fetchmail.server" id="imap_sharedmail_server">
             <field name="name">sendmail@flosslab.com</field>
             <field name="type">imap</field>
@@ -11,8 +20,9 @@
             <field name="port">993</field>
             <field name="user">sendmail@flosslab.com</field>
             <field name="password">test12345</field>
-            <field name="sharedmail" eval="True"></field>
             <field name="is_ssl" eval="True"></field>
+            <field name="sharedmail" eval="True"></field>
+            <field name="sharedmail_account_alias" ref="sharedmail.sharedmail_user_alias"></field>
             <field name="user_sharedmail_ids" eval="[(6, 0,[ref('base.user_root')])]"></field>
         </record>
         <record model="ir.mail_server" id="smtp_sharedmail_server">
@@ -24,14 +34,6 @@
             <field name="smtp_encryption">ssl</field>
             <field name="sharedmail" eval="True"></field>
             <field name="in_server_sharedmail_id" ref="imap_sharedmail_server"></field>
-        </record>
-
-        <record model="mail.alias" id="sharedmail_user_alias">
-            <field name="alias_name">sendmail</field>
-            <field name="alias_contact">everyone</field>
-            <field name="alias_user_id" eval="int(1)"></field>
-            <field name="alias_force_thread_id" eval="int(1)"></field>
-            <field model="ir.model" name="alias_model_id" search="[('model','ilike','res.users')]"/>
         </record>
 
     </data>
