@@ -2,7 +2,7 @@
 <openerp>
     <data>
         <record model="res.users" id="base.user_root">
-            <field name="groups_id" eval="[(4, ref('base.group_sharedmail_reader')),(4, ref('base.group_sharedmail_writer'))]"/>
+            <field name="groups_id" eval="[(4, ref('base.group_sharedmail_reader')),(4, ref('base.group_sharedmail_sent')),(4, ref('base.group_sharedmail_writer'))]"/>
         </record>
 
         <record model="mail.alias" id="sharedmail_user_alias">

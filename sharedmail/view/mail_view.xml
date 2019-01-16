@@ -198,7 +198,7 @@
             <field name="name">Sent Shared E-mail</field>
             <field name="action" ref="action_out_mail_sharedmail"/>
             <field name="parent_id" ref="mail_sharedmail_main"/>
-            <field name="groups_id" eval="[(4, ref('base.group_sharedmail_writer'))]"/>
+            <field name="groups_id" eval="[(4, ref('base.group_sharedmail_sent'))]"/>
         </record>
 
         <record id="mail_write_sharedmail" model="ir.ui.menu">
