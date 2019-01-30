@@ -87,7 +87,7 @@ msgstr "E-mail"
 #: model:ir.actions.act_window,name:sharedmail.action_mail_sharedmail
 #: model:ir.ui.menu,name:sharedmail.menu_in_mail_sharedmail
 msgid "Read Shared E-mail"
-msgstr "Ricevute"
+msgstr "In arrivo"
 
 #. module: sharedmail
 #: model:ir.actions.act_window,name:sharedmail.action_out_mail_sharedmail

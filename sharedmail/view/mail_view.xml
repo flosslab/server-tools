@@ -104,7 +104,7 @@
             <field name="arch" type="xml">
                 <tree string="E-mail" create="false" delete="false">
                     <field name="direction_sharedmail" invisible="1"/>
-                    <field name="email_from" />
+                    <field name="email_from" string="Mittente"/>
                     <field name="date" />
                     <field name="subject" />
                     <!--<field name="sharedmail_server_user" string="Account"/>-->
