@@ -121,9 +121,31 @@
             <field name="priority">26</field>
             <field name="arch" type="xml">
                 <search string="Message">
-                   <field name="email_from" string="Sharedmail address"/>
-                   <field name="date" string="Date"/>
+                    <field name="email_from" string="Da"/>
+                    <field name="sharedmail_to" string="A"/>
+                    <field name="sharedmail_cc" string="CC"/>
+                    <field name="subject" string="Oggetto"/>
+                    <field name="body" string="Contenuto"/>
+                    <field name="date"
+                           filter_domain="[('date','&gt;=',self)]"
+                           string="Data dal:"/>
+                    <field name="date"
+                           filter_domain="[('date','&lt;=',self)]"
+                           string="Data entro il:"/>
                 </search>
+            </field>
+        </record>
+
+        <!-- mail.message search: wall view !-->
+        <record model="ir.ui.view" id="view_message_search_sharedmail">
+            <field name="name">mail.message.search.sharedmail</field>
+            <field name="model">mail.message</field>
+            <field name="priority">10</field>
+            <field name="inherit_id" ref="mail.view_message_search"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="sharedmail_cc" string="CC E-mail"/>
+                </field>
             </field>
         </record>
 
