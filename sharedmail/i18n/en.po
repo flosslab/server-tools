@@ -317,11 +317,6 @@ msgid "Notice Error Delivery Message"
 msgstr "Notice Error Delivery Message"
 
 #. module: sharedmail
-#: field:mail.message,cert_datetime:0
-msgid "Certified Date and Time "
-msgstr "Certified Date and Time "
-
-#. module: sharedmail
 #: model:ir.model,name:sharedmail.model_mail_thread
 msgid "Email Thread"
 msgstr "Email Thread"
