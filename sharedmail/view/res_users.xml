@@ -9,7 +9,7 @@
         <field name="arch" type="xml">
             <notebook position="inside">
                 <page string="Fetchmail sharedmail servers">
-                    <field name="allowed_server_sharedmail_ids"  />
+                    <field name="allowed_server_sharedmail_ids" domain="[('sharedmail','=',True)]"/>
                 </page>
             </notebook>
         </field>
