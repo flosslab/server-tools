@@ -99,8 +99,10 @@ class MailThread(orm.Model):
         email_from = decode_header(message, 'From')
         if email_from and email_from.lower().__contains__("mailer-daemon@"):
             fake_from = ('From', message['From'].lower().replace('mailer-daemon', 'mailerdaemon'))
-            fake_content_type = ('Content-Type', message['Content-Type'].replace('Report', 'Mixed').replace('report', 'mixed'))
-            message._headers = [i for i in message._headers if not i[0] == 'From' and not i[0] == 'Content-Type']
+            message._headers = [i for i in message._headers if not i[0] == 'From']
             message._headers.append(fake_from)
+        if message.get_content_type() == 'multipart/report':
+            fake_content_type = ('Content-Type', message['Content-Type'].replace('Report', 'Mixed').replace('report', 'mixed'))
+            message._headers = [i for i in message._headers if not i[0] == 'Content-Type']
             message._headers.append(fake_content_type)
         return message
