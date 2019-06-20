@@ -11,8 +11,12 @@
 
 from openerp.osv import orm
 from openerp import api
+from openerp.addons.mail.mail_message import decode
 import email
 import xmlrpclib
+
+def decode_header(message, header, separator=' '):
+    return separator.join(map(decode, filter(None, message.get_all(header, []))))
 
 class MailThread(orm.Model):
     _inherit = 'mail.thread'
@@ -66,6 +70,7 @@ class MailThread(orm.Model):
 
     def message_route(self, cr, uid, message, message_dict, model=None, thread_id=None,
                       custom_values=None, context=None):
+        self.fix_headers_bounces(message)
         res = super(MailThread, self).message_route(cr, uid, message, message_dict, model, thread_id, custom_values, context)
         if context and context.has_key('fetchmail_server_id') and context['fetchmail_server_id']:
             fetchmail_server_obj = self.pool.get('fetchmail.server')
@@ -88,3 +93,14 @@ class MailThread(orm.Model):
                         new_res.append(route)
                 return new_res
         return res
+
+    # modifica due campi nelle notifiche di errore dei server di legalmail che diversamente verrebbero scartate dal sistema
+    def fix_headers_bounces(self, message):
+        email_from = decode_header(message, 'From')
+        if email_from and email_from.lower().__contains__("mailer-daemon@"):
+            fake_from = ('From', message['From'].lower().replace('mailer-daemon', 'mailerdaemon'))
+            fake_content_type = ('Content-Type', message['Content-Type'].replace('Report', 'Mixed').replace('report', 'mixed'))
+            message._headers = [i for i in message._headers if not i[0] == 'From' and not i[0] == 'Content-Type']
+            message._headers.append(fake_from)
+            message._headers.append(fake_content_type)
+        return message
