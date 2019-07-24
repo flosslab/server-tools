@@ -68,35 +68,39 @@ class MailThread(orm.Model):
                 msg_obj.write(cr, uid, msg_id, vals)
         return msg_id
 
-    def message_route(self, cr, uid, message, message_dict, model=None, thread_id=None,
-                      custom_values=None, context=None):
-        self.fix_headers_bounces(message)
-        res = super(MailThread, self).message_route(cr, uid, message, message_dict, model, thread_id, custom_values, context)
+    def message_route(self, cr, uid, message, message_dict, model=None, thread_id=None, custom_values=None, context=None):
+        fetchmail_server = None
         if context and context.has_key('fetchmail_server_id') and context['fetchmail_server_id']:
             fetchmail_server_obj = self.pool.get('fetchmail.server')
             fetchmail_server = fetchmail_server_obj.browse(cr, uid, context['fetchmail_server_id'])
-            if fetchmail_server.sharedmail:
-                new_res = []
-                for route in res:
-                    mail_alias = None
-                    if route[4]:
-                        mail_alias = route[4]
-                    if mail_alias and mail_alias.id:
-                        fetchmail_server_ids = fetchmail_server_obj.search(cr, uid, [
-                            ('sharedmail_account_alias', '=', mail_alias.id)
-                        ], context=context)
-                        sharedmail_fetchmail_servers = fetchmail_server_obj.browse(cr, uid, fetchmail_server_ids)
-                        for sharedmail_fetchmail_server in sharedmail_fetchmail_servers:
-                            if fetchmail_server.id == sharedmail_fetchmail_server.id:
-                                new_res.append(route)
-                    else:
-                        new_res.append(route)
-                return new_res
+
+        if fetchmail_server and fetchmail_server.sharedmail:
+            self.fix_sharedmail_headers_bounces(message)
+
+        res = super(MailThread, self).message_route(cr, uid, message, message_dict, model, thread_id, custom_values, context)
+
+        if fetchmail_server and fetchmail_server.sharedmail:
+            new_res = []
+            for route in res:
+                mail_alias = None
+                if route[4]:
+                    mail_alias = route[4]
+                if mail_alias and mail_alias.id:
+                    fetchmail_server_ids = fetchmail_server_obj.search(cr, uid, [
+                        ('sharedmail_account_alias', '=', mail_alias.id)
+                    ], context=context)
+                    sharedmail_fetchmail_servers = fetchmail_server_obj.browse(cr, uid, fetchmail_server_ids)
+                    for sharedmail_fetchmail_server in sharedmail_fetchmail_servers:
+                        if fetchmail_server.id == sharedmail_fetchmail_server.id:
+                            new_res.append(route)
+                else:
+                    new_res.append(route)
+            return new_res
         return res
 
     # modifica due campi nelle notifiche di errore dei server di legalmail che diversamente verrebbero scartate dal sistema
-    def fix_headers_bounces(self, message):
+    def fix_sharedmail_headers_bounces(self, message):
         email_from = decode_header(message, 'From')
-        if (email_from and email_from.lower().__contains__("mailer-daemon@")) or message.get_content_type() == 'multipart/report':
-            raise ValueError("Fetch undelivered message")
+        if (email_from and email_from.lower().__contains__('mailer-daemon@')) or message.get_content_type()=='multipart/report':
+            raise ValueError('Fetch undelivered message')
         return message
