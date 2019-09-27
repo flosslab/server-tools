@@ -22,7 +22,7 @@
 
 {
     "name": "Shared Mail",
-    "version": "8.0.1.8.9",
+    "version": "8.0.1.8.10",
     "author": "Flosslab Srl",
     "category": "Tools",
     "website": "http://www.flosslab.com",
