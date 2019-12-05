@@ -66,7 +66,7 @@ msgstr "Utenti abilitati - Sharedmail Server"
 #. module: sharedmail
 #: field:res.users,allowed_server_mail_ids:0
 msgid "Fetchmail sharedmail servers allowed to be used"
-msgstr "Fetchmail sharedmail abilitati"
+msgstr "Account Email"
 
 #. module: sharedmail
 #: field:fetchmail.server,sharedmail:0 field:ir.mail_server,sharedmail:0
