@@ -59,9 +59,9 @@ class MailMessage(orm.Model):
         'sharedmail_type': fields.selection([
             ('sharedmail', 'Shared Mail'),
         ], 'SharedMail Type', readonly=True),
-        'sharedmail_to': fields.text('A', readonly=True),
-        'sharedmail_cc': fields.text('CC', readonly=True),
-        'server_sharedmail_user': fields.related('server_sharedmail_id', 'user', type='char', readonly=True, string='Account'),
+        'sharedmail_to': fields.text('A (SharedMail)', readonly=True),
+        'sharedmail_cc': fields.text('CC (SharedMail)', readonly=True),
+        'server_sharedmail_user': fields.related('server_sharedmail_id', 'user', type='char', readonly=True, string='Account (SharedMail)'),
         'server_sharedmail_state': fields.function(
             _get_mail_state, type='char',
             string='Mail State')
