@@ -40,12 +40,11 @@ class MailComposeMessage(osv.TransientModel):
 
     def _get_def_server(self, cr, uid, context=None):
         res = self.pool.get('fetchmail.server').search(
-            cr, uid, [('user_sharedmail_ids', 'in', uid), ('sharedmail', '=', True)], context=context)
+            cr, uid, [('user_sharedmail_ids', 'in', uid), ('sharedmail', '=', True), ('state','=','done')], context=context)
         return res and res[0] or False
 
     _columns = {
-        'server_sharedmail_id': fields.many2one(
-            'fetchmail.server', 'Server', domain="[('sharedmail', '=', True),('user_sharedmail_ids', 'in', uid)]", required=True),
+        'server_sharedmail_id': fields.many2one('fetchmail.server', 'Server', domain="[('sharedmail', '=', True),('user_sharedmail_ids', 'in', uid),('state','=','done')]"),
     }
     _defaults = {
         'server_sharedmail_id': _get_def_server,
