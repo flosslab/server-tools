@@ -60,8 +60,6 @@
                             </group>
                         </div>
                         <group class="message_data">
-                            <field name="server_sharedmail_state" attrs="{'invisible':[('direction_sharedmail','=','in')]}"/>
-                            <newline/>
                             <field name="subject" colspan="4" readonly="1" />
                             <group class="body-message-container">
                                 <field name="body" colspan="4" readonly="1" string="Corpo del messaggio"/>
@@ -167,9 +165,12 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="sharedmail_message_search_view"/>
             <field name="domain">[
-                  ('server_sharedmail_id.sharedmail','=',True),
-                  ('direction_sharedmail', '=', 'out'),
-                  ('server_sharedmail_id.user_sharedmail_ids','in',uid)]</field>
+                ('server_sharedmail_id.sharedmail','=',True),
+                ('direction_sharedmail','=','out'),
+                ('server_sharedmail_id.user_sharedmail_ids','in',uid),
+                ('mail_ids.state','=','sent')
+            ]
+            </field>
             <field name="context">{
                 'sharedmail_messages': True,
             }</field>

@@ -64,7 +64,8 @@ class MailMessage(orm.Model):
         'server_sharedmail_user': fields.related('server_sharedmail_id', 'user', type='char', readonly=True, string='Account (SharedMail)'),
         'server_sharedmail_state': fields.function(
             _get_mail_state, type='char',
-            string='Mail State')
+            string='Mail State'),
+        'mail_ids': fields.one2many('mail.mail', 'mail_message_id', 'Mails', readonly=True)
     }
 
     def _search(
