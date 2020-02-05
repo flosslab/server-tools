@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<openerp>
+    <data noupdate="0">
+
+        <record model="ir.ui.view" id="ir_cron_view">
+            <field name="model">ir.cron</field>
+            <field name="inherit_id" ref="base.ir_cron_view"/>
+            <field name="arch" type="xml">
+                <field name="args" position="after">
+                    <button name="action_manual_exec"
+                            type="object"
+                            string="Manual exec"
+                            confirm="Trigger manual execution of cron action?"
+                            class="oe_highlight"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
