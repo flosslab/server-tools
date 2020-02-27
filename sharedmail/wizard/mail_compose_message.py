@@ -43,31 +43,31 @@ class MailComposeMessage(osv.TransientModel):
             cr, uid, [('user_sharedmail_ids', 'in', uid), ('sharedmail', '=', True), ('state','=','done')], context=context)
         return res and res[0] or False
 
+    def default_get(self, cr, uid, fields, context=None):
+        result = super(MailComposeMessage, self).default_get(cr, uid, fields, context=context)
+        if context and context.get('new_sharedmail_mail', False):
+            result['subject'] = False
+        return result
+
     _columns = {
         'server_sharedmail_id': fields.many2one('fetchmail.server', 'Server', domain="[('sharedmail', '=', True),('user_sharedmail_ids', 'in', uid),('state','=','done')]"),
     }
     _defaults = {
+        'model': 'res.partner',
+        'res_id': lambda obj, cr, uid, context: uid,
         'server_sharedmail_id': _get_def_server,
     }
 
     def send_mail(self, cr, uid, ids, context=None):
-        """ Override of send_mail to duplicate attachments linked to the
-        email.template.
-            Indeed, basic mail.compose.message wizard duplicates attachments
-            in mass
-            mailing mode. But in 'single post' mode, attachments of an
-            email template
-            also have to be duplicated to avoid changing their ownership. """
         for wizard in self.browse(cr, uid, ids, context=context):
             if context.get('new_sharedmail_mail'):
                 context['new_sharedmail_server_id'] = wizard.server_sharedmail_id.id
                 for partner in wizard.partner_ids:
                     if not partner.email:
-                        raise osv.except_osv(
-                            _('Error'),
-                            _('No mail for partner %s') % partner.name)
-        return super(MailComposeMessage, self).send_mail(
-            cr, uid, ids, context=context)
+                        raise osv.except_osv(_('Error'), _('No mail for partner %s') % partner.name)
+                # set template_id to False to avoid remove user_signature
+                self.write(cr, uid, wizard.id, {'template_id': False}, context=context)
+        return super(MailComposeMessage, self).send_mail(cr, uid, ids, context=context)
 
     def get_message_data(self, cr, uid, message_id, context=None):
         if not message_id:
@@ -88,25 +88,13 @@ class MailComposeMessage(osv.TransientModel):
             return super(MailComposeMessage, self).get_message_data(
                 cr, uid, message_id, context=context)
 
-    # def get_record_data(self, cr, uid, values, context=None):
-    #     """ Returns a defaults-like dict with initial values for the
-    #     composition wizard when sending an email related a previous email
-    #     (parent_id) or a document (model, res_id).
-    #     This is based on previously computed default values. """
-    #     if context is None:
-    #         context = {}
-    #     result = super(MailComposeMessage, self).get_record_data(
-    #         cr, uid, values, context=context)
-    #     if 'reply_pec' in context and context['reply_pec']:
-    #         if 'parent_id' in values:
-    #             parent = self.pool.get('mail.message').browse(
-    #                 cr, uid, values.get('parent_id'), context=context)
-    #             result['parent_id'] = parent.id
-    #             subject = parent.subject
-    #             re_prefix = _('Re:')
-    #             if subject and not \
-    #                     (subject.startswith('Re:') or
-    #                      subject.startswith(re_prefix)):
-    #                 subject = "%s %s" % (re_prefix, subject)
-    #                 result['subject'] = subject
-    #     return result
+    def save_as_template(self, cr, uid, ids, context=None):
+        result = super(MailComposeMessage, self).save_as_template(cr, uid, ids, context=context)
+
+        if context and context.get('new_sharedmail_mail', False):
+            model_data_obj = self.pool.get('ir.model.data')
+            view_rec = model_data_obj.get_object_reference(cr, uid, 'sharedmail', 'email_compose_message_wizard_form_sharedmail')
+            view_id = view_rec and view_rec[1] or False
+            result['view_id'] = view_id
+
+        return result

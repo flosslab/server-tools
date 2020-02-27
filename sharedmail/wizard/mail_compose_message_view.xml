@@ -38,13 +38,30 @@
                         <button string="Invia E-mail" name="send_mail" type="object" class="oe_highlight" />
                         or
                         <button string="Cancel" class="oe_link" special="cancel" />
+                        <group class="oe_right" col="1">
+                            <div>
+                                Usa template
+                                <field name="template_id"
+                                       domain="[('model', '=', 'res.partner'),('create_uid', '=', uid)]"
+                                       nolabel="1"
+                                       on_change="onchange_template_id(template_id, composition_mode, model, res_id, context)"
+                                       widget="selection"
+                                />
+                            </div>
+                            <button icon="/email_template/static/src/img/email_template_save.png"
+                                    type="object"
+                                    name="save_as_template"
+                                    string="Salva come nuovo modello"
+                                    class="oe_link"
+                            />
+                        </group>
                     </footer>
                 </form>
             </field>
         </record>
 
         <record id="action_sharedmail_mail_compose_message_wizard" model="ir.actions.act_window">
-            <field name="name">Compose Shared Email</field>
+            <field name="name">Scrivi E-mail</field>
             <field name="res_model">mail.compose.message</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_type">form</field>
