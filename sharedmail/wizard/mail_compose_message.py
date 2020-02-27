@@ -11,7 +11,7 @@
 
 from openerp.osv import osv, fields
 from openerp.tools.translate import _
-from openerp import SUPERUSER_ID
+from openerp import SUPERUSER_ID, tools
 
 
 class MailComposeMessage(osv.TransientModel):
@@ -55,12 +55,13 @@ class MailComposeMessage(osv.TransientModel):
     _defaults = {
         'model': 'res.partner',
         'res_id': lambda obj, cr, uid, context: uid,
-        'server_sharedmail_id': _get_def_server,
+        'server_sharedmail_id': _get_def_server
     }
 
     def send_mail(self, cr, uid, ids, context=None):
         for wizard in self.browse(cr, uid, ids, context=context):
             if context.get('new_sharedmail_mail'):
+                context['mail_notify_user_signature'] = False
                 context['new_sharedmail_server_id'] = wizard.server_sharedmail_id.id
                 for partner in wizard.partner_ids:
                     if not partner.email:
@@ -85,18 +86,3 @@ class MailComposeMessage(osv.TransientModel):
         else:
             return super(MailComposeMessage, self).get_message_data(
                 cr, uid, message_id, context=context)
-
-    def save_as_template(self, cr, uid, ids, context=None):
-        result = super(MailComposeMessage, self).save_as_template(cr, uid, ids, context=context)
-
-        for record in self.browse(cr, uid, ids, context=context):
-            template = record.template_id
-            template.write({'user_signature': True})
-
-        if context and context.get('new_sharedmail_mail', False):
-            model_data_obj = self.pool.get('ir.model.data')
-            view_rec = model_data_obj.get_object_reference(cr, uid, 'sharedmail', 'email_compose_message_wizard_form_sharedmail')
-            view_id = view_rec and view_rec[1] or False
-            result['view_id'] = view_id
-
-        return result
