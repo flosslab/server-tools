@@ -65,8 +65,6 @@ class MailComposeMessage(osv.TransientModel):
                 for partner in wizard.partner_ids:
                     if not partner.email:
                         raise osv.except_osv(_('Error'), _('No mail for partner %s') % partner.name)
-                # set template_id to False to avoid remove user_signature
-                self.write(cr, uid, wizard.id, {'template_id': False}, context=context)
         return super(MailComposeMessage, self).send_mail(cr, uid, ids, context=context)
 
     def get_message_data(self, cr, uid, message_id, context=None):
@@ -90,6 +88,10 @@ class MailComposeMessage(osv.TransientModel):
 
     def save_as_template(self, cr, uid, ids, context=None):
         result = super(MailComposeMessage, self).save_as_template(cr, uid, ids, context=context)
+
+        for record in self.browse(cr, uid, ids, context=context):
+            template = record.template_id
+            template.write({'user_signature': True})
 
         if context and context.get('new_sharedmail_mail', False):
             model_data_obj = self.pool.get('ir.model.data')
