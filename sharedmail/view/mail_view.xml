@@ -123,6 +123,7 @@
                     <field name="sharedmail_cc" string="CC"/>
                     <field name="subject" string="Oggetto"/>
                     <field name="body" string="Contenuto"/>
+                    <field name="server_sharedmail_id" string="Account"/>
                     <field name="date"
                            filter_domain="[('date','&gt;=',self)]"
                            string="Data dal:"/>
