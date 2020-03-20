@@ -22,7 +22,7 @@
         </record>
 
         <record id="base.group_sharedmail_writer" model="res.groups">
-            <field name="name">Invia E-mail</field>
+            <field name="name">Invia E-mail (BETA)</field>
             <field name="comment">The user will have access to Shared E-mail to write</field>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
             <field name="category_id" ref="sharedmail"/>
