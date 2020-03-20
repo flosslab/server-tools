@@ -98,7 +98,7 @@ msgstr "Inviate"
 #. module: sharedmail
 #: model:ir.ui.menu,name:sharedmail.mail_write_sharedmail
 msgid "Write Shared E-mail"
-msgstr "Scrivi (BETA)"
+msgstr "Scrivi"
 
 #. module: sharedmail
 #: field:mail.message,out_server_id:0
