@@ -51,6 +51,7 @@
                             <group col="4">
                                 <field name="server_sharedmail_user" string="Account"/>
                                 <field name="date" readonly="1"/>
+                                <newline/>
                                 <field name="author_id" string="Contatto Rubrica"/>
                                 <newline/>
                                 <field name="email_from" readonly="1" />
@@ -94,7 +95,7 @@
             </field>
         </record>
 
-        <record model='ir.ui.view' id='message_sharedmail_tree'>
+        <record id="message_sharedmail_tree" model="ir.ui.view">
             <field name="name">message.sharedmail.tree</field>
             <field name="model">mail.message</field>
             <field name="priority">100</field>
@@ -104,15 +105,49 @@
                     <field name="email_from" string="Mittente"/>
                     <field name="date" />
                     <field name="subject" />
-                    <!--<field name="sharedmail_server_user" string="Account"/>-->
                     <field name="server_sharedmail_user" attrs="{'invisible':[('direction_sharedmail','!=','in')]}" string="Account"/>
-                    <!--<field name="partner_ids" attrs="{'invisible':[('direction_sharedmail','!=','out')]}"/>-->
-                    <!--<field name="server_sharedmail_state" attrs="{'invisible':[('direction_sharedmail','!=','out')]}"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="out_message_sharedmail_tree" model="ir.ui.view">
+            <field name="name">message.sharedmail.tree</field>
+            <field name="model">mail.message</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <tree string="E-mail" create="false" delete="false">
+                    <field name="direction_sharedmail" invisible="1"/>
+                    <field name="email_from" string="Mittente"/>
+                    <field name="date" />
+                    <field name="subject" />
+                    <field name="server_sharedmail_user" attrs="{'invisible':[('direction_sharedmail','!=','in')]}" string="Account"/>
                 </tree>
             </field>
         </record>
 
         <record id="sharedmail_message_search_view" model="ir.ui.view">
+            <field name="name">message.search.form</field>
+            <field name="model">mail.message</field>
+            <field name="priority">26</field>
+            <field name="arch" type="xml">
+                <search string="Message">
+                    <field name="email_from" string="Da"/>
+                    <field name="sharedmail_to" string="A"/>
+                    <field name="sharedmail_cc" string="CC"/>
+                    <field name="subject" string="Oggetto"/>
+                    <field name="body" string="Contenuto"/>
+                    <field name="server_sharedmail_id" string="Account"/>
+                    <field name="date"
+                           filter_domain="[('date','&gt;=',self)]"
+                           string="Data dal:"/>
+                    <field name="date"
+                           filter_domain="[('date','&lt;=',self)]"
+                           string="Data entro il:"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="out_sharedmail_message_search_view" model="ir.ui.view">
             <field name="name">message.search.form</field>
             <field name="model">mail.message</field>
             <field name="priority">26</field>
@@ -164,7 +199,7 @@
             <field name="res_model">mail.message</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="sharedmail_message_search_view"/>
+            <field name="search_view_id" ref="out_sharedmail_message_search_view"/>
             <field name="domain">[
                 ('server_sharedmail_id.sharedmail','=',True),
                 ('direction_sharedmail','=','out'),
@@ -194,7 +229,7 @@
         <record model="ir.actions.act_window.view" id="out_message_sharedmail_act_tree">
             <field name="sequence" eval="1"/>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="message_sharedmail_tree"/>
+            <field name="view_id" ref="out_message_sharedmail_tree"/>
             <field name="act_window_id" ref="action_out_mail_sharedmail"/>
         </record>
 
