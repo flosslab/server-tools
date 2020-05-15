@@ -10,8 +10,9 @@
         <field name="arch" type="xml">
             <field name="date" position="after" >
                 <newline/>
-                    <field name="sharedmail"/>
-                    <field name="sharedmail_account_alias" attrs="{'required': [('sharedmail','=',True)]}"/>
+                <field name="sharedmail"/>
+                <field name="sharedmail_account_alias" attrs="{'required': [('sharedmail','=',True)]}"/>
+                <field name="associate_email_by_other_alias" attrs="{'invisible': [('sharedmail','!=',True)]}"/>
                 <newline/>
             </field>
             <notebook position="inside">

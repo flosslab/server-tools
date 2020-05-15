@@ -35,6 +35,8 @@ class FetchmailServer(models.Model):
         readonly=True,
         copy=False)
 
+    associate_email_by_other_alias = fields.Boolean("Associa le email tramite altri alias", default=False)
+
     def get_fetch_server_sharedmail(self, cr, uid, context=None):
         server_ids = self.search(cr, uid, [('user_sharedmail_ids', '=', uid)])
         return server_ids
